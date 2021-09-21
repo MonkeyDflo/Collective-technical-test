@@ -1,0 +1,42 @@
+$color: #5d83eb;
+$width: auto;
+$height: 95%;
+
+.daytab {
+  width: $width;
+  height: $height;
+  background-color: $color;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  h1 {
+    //width: $width;
+    color: #ffff;
+  }
+
+  p {
+    color: #ffff;
+  }
+
+  // div {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  // }
+}
+
+.meetings {
+  width: 100%;
+  display: flex;
+  background-color: rgb(127, 137, 165);
+  border-color: #ffff;
+}
+
+// .hours {
+//   position: relative;
+//   top: 0px;
+//   left: 0px;
+// }

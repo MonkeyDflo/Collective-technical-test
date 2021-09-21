@@ -1,0 +1,148 @@
+{
+  "version": 2,
+  "projects": {
+    "calendar": {
+      "root": "libs/calendar",
+      "sourceRoot": "libs/calendar/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/calendar/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/calendar"],
+          "options": {
+            "jestConfig": "libs/calendar/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "zoom-calendar": {
+      "root": "apps/zoom-calendar",
+      "sourceRoot": "apps/zoom-calendar/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/zoom-calendar",
+            "index": "apps/zoom-calendar/src/index.html",
+            "main": "apps/zoom-calendar/src/main.tsx",
+            "polyfills": "apps/zoom-calendar/src/polyfills.ts",
+            "tsConfig": "apps/zoom-calendar/tsconfig.app.json",
+            "assets": [
+              "apps/zoom-calendar/src/favicon.ico",
+              "apps/zoom-calendar/src/assets"
+            ],
+            "styles": ["apps/zoom-calendar/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/zoom-calendar/src/environments/environment.ts",
+                  "with": "apps/zoom-calendar/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "zoom-calendar:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "zoom-calendar:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/zoom-calendar/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/zoom-calendar"],
+          "options": {
+            "jestConfig": "apps/zoom-calendar/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "zoom-calendar-e2e": {
+      "root": "apps/zoom-calendar-e2e",
+      "sourceRoot": "apps/zoom-calendar-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/zoom-calendar-e2e/cypress.json",
+            "devServerTarget": "zoom-calendar:serve",
+            "tsConfig": "apps/zoom-calendar-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "zoom-calendar:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/zoom-calendar-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "zoom-calendar"
+}
